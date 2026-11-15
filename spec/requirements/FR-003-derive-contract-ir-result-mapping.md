@@ -3,9 +3,9 @@ id: FR-003
 title: "Derive a TL-owned Contract-IR outcome from a validated temporal result"
 type: FR
 relationships:
-  - target: ix://agent-ix/quire-mltl/MRS-001
+  - target: ix://agent-ix/filament-mltl/MRS-001
     type: implements
-  - target: ix://agent-ix/quire-mltl/FR-001
+  - target: ix://agent-ix/filament-mltl/FR-001
     type: depends_on
 ---
 # FR-003: Derive a TL-owned Contract-IR outcome from a validated temporal result
@@ -13,7 +13,7 @@ relationships:
 ## Description
 
 When a caller selects a constructor-private `ValidatedTemporalResult` for
-Contract-IR handoff, quire-mltl SHALL derive one immutable canonical
+Contract-IR handoff, filament-mltl SHALL derive one immutable canonical
 `tl-mltl.contract-ir-result-map/v1` document containing either a valid
 Boolean `value` or a typed `nonValue`, re-derived entirely from that result
 with no caller-supplied result field, label parser, callback, or trust flag.

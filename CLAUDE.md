@@ -1,9 +1,9 @@
-# quire-mltl
+# filament-mltl
 
-Bridges `tl-mltl`'s TL-owned evaluation types to `quire-observation`'s
+Bridges `tl-mltl`'s TL-owned evaluation types to `filament-observation`'s
 owner-assertion views — the one deliberate exception to `tl-mltl`'s
-independence from the agent-ix/Quire ecosystem (architect ruling, Linear epic
-TL-175: every TL-* crate stays independent of Quire; only a dedicated
+independence from the agent-ix/Filament ecosystem (architect ruling, Linear epic
+TL-175: every TL-* crate stays independent of Filament; only a dedicated
 integration crate may bridge them).
 
 ## Hash / digest / pin antipattern: present, slated for removal
@@ -26,8 +26,8 @@ FR-004 and FR-005 add the native-correspondence dimension: identity
 preservation across the three documents, a typed refusal for a class this
 crate cannot represent, and a closed correspondence-class census. They are
 specification only — no implementation yet. ADR-002 records why that dimension
-is here and why this crate is the *supplier* to `quire-contract-ir` FR-026,
-not its consumer. **This crate takes no `quire-contract-ir` dependency**; one
+is here and why this crate is the *supplier* to `filament-contract-ir` FR-026,
+not its consumer. **This crate takes no `filament-contract-ir` dependency**; one
 would close a cycle with TL-181.
 
 ## Commands
@@ -67,7 +67,7 @@ Mirrors `tl-mltl`'s own scaffolding:
 
 ## License
 
-`AGPL-3.0-or-later`, this org's default for `quire-*` program repositories.
+`AGPL-3.0-or-later`, this org's default for `filament-*` program repositories.
 
 ## Layout
 

@@ -7,14 +7,14 @@
 //! outside this crate and are represented by explicit compatibility
 //! dispositions rather than projections. See FR-002.
 
-use quire_observation::authority::{query, repair};
+use filament_observation::authority::{query, repair};
 use tl_mltl::wire::{OwnerLimits, OwnerReadError};
 
 use crate::request;
 
-/// Exact QObs C00 repair-plan contract not consumed by quire-mltl.
+/// Exact QObs C00 repair-plan contract not consumed by filament-mltl.
 pub const REPAIR_PLAN_CONTRACT: &str = repair::CONTRACT;
-/// Exact QObs C00 closed-population-query contract not consumed by quire-mltl.
+/// Exact QObs C00 closed-population-query contract not consumed by filament-mltl.
 pub const CLOSED_POPULATION_QUERY_CONTRACT: &str = query::CONTRACT;
 
 /// Closed QObs C00 contract families presented to the TL consumer boundary.

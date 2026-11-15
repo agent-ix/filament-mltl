@@ -32,7 +32,7 @@
   `tl-mltl`'s allow list).
 - New crates with other licenses require an explicit `deny.toml` exception with a comment explaining why.
 - Unknown registries and unknown git sources are denied. `[sources].allow-git` names the
-  exact `tl-mltl`, `quire-observation`, `tl-syntax`, and `filament-core-data` git sources
+  exact `tl-mltl`, `filament-observation`, `tl-syntax`, and `filament-core-data` git sources
   this crate pins.
 
 ## Tests

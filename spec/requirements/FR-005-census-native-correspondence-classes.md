@@ -3,18 +3,18 @@ id: FR-005
 title: "Census the native-correspondence classes the bridge carries, and replay each one"
 type: FR
 relationships:
-  - target: ix://agent-ix/quire-mltl/MRS-001
+  - target: ix://agent-ix/filament-mltl/MRS-001
     type: implements
-  - target: ix://agent-ix/quire-mltl/FR-004
+  - target: ix://agent-ix/filament-mltl/FR-004
     type: depends_on
-  - target: ix://agent-ix/quire-contract-ir/FR-026
+  - target: ix://agent-ix/filament-contract-ir/FR-026
     type: references
 ---
 # FR-005: Census the native-correspondence classes the bridge carries, and replay each one
 
 ## Description
 
-When the native-correspondence bridge is measured, quire-mltl SHALL enumerate a
+When the native-correspondence bridge is measured, filament-mltl SHALL enumerate a
 closed, reviewed set of correspondence classes, classify every class as
 `applicable`, `excluded`, or `blocked` exactly once, bind each applicable class
 to exactly one canonical fixture with an independently derived expected
@@ -30,7 +30,7 @@ justify.
 - One canonical fixture per applicable class: the exact request bytes, the
   exact supplied owner views and formula/proposition-map/trace-or-history
   documents, and the exact expected result and mapped-outcome bytes.
-- The exact `quire-contract-ir` predicate-projection and
+- The exact `filament-contract-ir` predicate-projection and
   temporal-correspondence contract labels each class was reviewed against,
   as identity text.
 
@@ -103,11 +103,11 @@ a typed refusal, not a mismatch to investigate later.
 
 ### Consumer contracts are referenced by identity, never copied
 
-Each class records the `quire-contract-ir` predicate-projection and
+Each class records the `filament-contract-ir` predicate-projection and
 temporal-correspondence contract labels it was reviewed against. No schema, vocabulary table, or fixture is copied out of
-`quire-contract-ir` into this repository; a class references its counterpart
+`filament-contract-ir` into this repository; a class references its counterpart
 contract by identity (see
-[ADR-002](../decisions/ADR-002-quire-mltl-owns-the-native-correspondence-dimension.md)).
+[ADR-002](../decisions/ADR-002-filament-mltl-owns-the-native-correspondence-dimension.md)).
 
 ### The census reports a population, never a bare score
 
@@ -126,7 +126,7 @@ requires.
 | FR-005-AC-3 | A class key excludes lifecycle state, so moving a class from `blocked` to `applicable` preserves its key and its prior population remains comparable. | Inspection |
 | FR-005-AC-4 | Replay of every applicable class strict-reads its documents, re-derives the outcome, and agrees exactly with the recorded expectation; an expectation produced by calling this crate's own `derive`/`evaluate`/`read`/`map` paths is refused as non-independent. | Test |
 | FR-005-AC-5 | A fixture whose bytes or contract label disagrees with what it declares is a typed refusal; the same fixture with agreeing identities replays. | Test |
-| FR-005-AC-6 | A test enumerates every file under `spec/` and `tests/` in this repository and confirms none embeds a `quire-contract-ir` schema, vocabulary table, or fixture body: each class's `quire-contract-ir` reference is exactly a bounded identity record — contract labels, as text. | Test |
+| FR-005-AC-6 | A test enumerates every file under `spec/` and `tests/` in this repository and confirms none embeds a `filament-contract-ir` schema, vocabulary table, or fixture body: each class's `filament-contract-ir` reference is exactly a bounded identity record — contract labels, as text. | Test |
 | FR-005-AC-7 | Every reported figure carries its population, exclusions, and blocked set; a census output that states a ratio without them, or that records an approval, qualification, or release decision, is refused. | Test |
 
 ## Dependencies
@@ -135,6 +135,6 @@ Depends on [FR-004](./FR-004-preserve-native-correspondence-identity.md) for
 the identity-preservation and refusal obligations the classes are the coverage
 model for, and through it on FR-001 and FR-003.
 
-It references `quire-contract-ir` FR-026 as the consumer correspondence each
+It references `filament-contract-ir` FR-026 as the consumer correspondence each
 class is reviewed against. As in FR-004 this is deliberately not a
-`depends_on`: the crate dependency runs `quire-contract-ir -> quire-mltl`.
+`depends_on`: the crate dependency runs `filament-contract-ir -> filament-mltl`.

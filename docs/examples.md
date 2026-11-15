@@ -1,6 +1,6 @@
 # Examples
 
-The excerpts below are taken from the crate's tests, which pass against the current source. They omit the fixture setup in `tests/support/mod.rs`, which builds the owner views, the formula, the proposition map and the trace. The setup needs quire-observation's admission types, so the excerpts start from values the tests have already built.
+The excerpts below are taken from the crate's tests, which pass against the current source. They omit the fixture setup in `tests/support/mod.rs`, which builds the owner views, the formula, the proposition map and the trace. The setup needs filament-observation's admission types, so the excerpts start from values the tests have already built.
 
 ## A future-lane request mapped to a value
 
@@ -60,7 +60,7 @@ let past_input = request::RequestInput {
 };
 ```
 
-Here `observations` is a helper in `tests/support/mod.rs` that returns an `ObservationInputs` value. The six fields of `ObservationInputs` are described in [quire-observation.md](quire-observation.md).
+Here `observations` is a helper in `tests/support/mod.rs` that returns an `ObservationInputs` value. The six fields of `ObservationInputs` are described in [filament-observation.md](filament-observation.md).
 
 ## A superseding result
 
@@ -89,7 +89,7 @@ assert_eq!(superseding.revision(), 2);
 
 ## Ask which contracts the crate consumes
 
-This is from `tc_085_qobs_c00_temporal_dispatch_and_unsupported_contracts_are_exact` in `tests/tc_084_temporal_owner_wire.rs`. Temporal assessment is supported. The repair-plan and closed-population-query contracts belong to quire-observation, and `dispatch::compatibility` reports them as unsupported with their exact labels.
+This is from `tc_085_qobs_c00_temporal_dispatch_and_unsupported_contracts_are_exact` in `tests/tc_084_temporal_owner_wire.rs`. Temporal assessment is supported. The repair-plan and closed-population-query contracts belong to filament-observation, and `dispatch::compatibility` reports them as unsupported with their exact labels.
 
 ```rust
 let dispatch::Compatibility::Supported(supported) =
@@ -112,7 +112,7 @@ assert_eq!(unsupported.contract_label(), authority::repair::CONTRACT);
 `census::census()` returns the population of the native-correspondence registry without running any fixture. The tests in `tests/tc_087_native_correspondence_census.rs` replay one fixture for each applicable class.
 
 ```rust
-let report = quire_mltl::census::census();
+let report = filament_mltl::census::census();
 assert_eq!(
     report.applicable.len() + report.excluded.len() + report.blocked.len(),
     report.total

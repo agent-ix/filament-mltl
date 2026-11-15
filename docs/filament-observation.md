@@ -1,6 +1,6 @@
 # Observation views
 
-quire-mltl consumes six views that [quire-observation](https://github.com/agent-ix/quire-observation) reports, together with a clock view, and records a reference to each in the request.
+filament-mltl consumes six views that [filament-observation](https://github.com/agent-ix/filament-observation) reports, together with a clock view, and records a reference to each in the request.
 
 | View | Request field | What it asserts |
 | --- | --- | --- |

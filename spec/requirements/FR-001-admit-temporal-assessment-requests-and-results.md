@@ -3,11 +3,11 @@ id: FR-001
 title: "Admit temporal-assessment requests and emit immutable results against independently supplied QObs owner views"
 type: FR
 relationships:
-  - target: ix://agent-ix/quire-mltl/MRS-001
+  - target: ix://agent-ix/filament-mltl/MRS-001
     type: implements
   - target: ix://agent-ix/tl-mltl/FR-018
     type: depends_on
-  - target: ix://agent-ix/quire-observation/FR-004
+  - target: ix://agent-ix/filament-observation/FR-004
     type: depends_on
   - target: ix://agent-ix/tl-syntax/FR-014
     type: depends_on
@@ -18,8 +18,8 @@ relationships:
 
 When a caller supplies an independently strict-read formula, proposition map,
 trace or origin-complete history, clock, and the complete set of
-`quire_observation::authority` owner views a temporal assessment depends on,
-quire-mltl SHALL bind them into one immutable canonical
+`filament_observation::authority` owner views a temporal assessment depends on,
+filament-mltl SHALL bind them into one immutable canonical
 `tl-mltl.temporal-assessment-request/v1` document, evaluate it through
 `tl-mltl`'s existing future or past evaluators under exactly its selected
 profile, and emit one immutable canonical `tl-mltl.temporal-assessment-result/v1`
@@ -35,19 +35,19 @@ evaluation semantic they already carry.
   request is refused.
 - A `tl-mltl` validated trace (future lane) or validated origin-complete
   position history (past lane).
-- An independently strict-read `quire_observation::authority::clock::View`.
-- Four independent `quire_observation::authority` progress/closure owner
+- An independently strict-read `filament_observation::authority::clock::View`.
+- Four independent `filament_observation::authority` progress/closure owner
   views: decision-scope progress, decision-scope closure, surrounding-execution
   progress, surrounding-execution closure.
-- An independent `quire_observation::authority::completeness::View` and
-  `quire_observation::authority::availability::View`.
+- An independent `filament_observation::authority::completeness::View` and
+  `filament_observation::authority::availability::View`.
 - Exact native subject and native/TL correspondence identities, an explicit
   evaluation anchor, and caller-lowered `OwnerLimits`.
 - For result evaluation: the admitted `ValidatedTemporalRequest` plus an
   explicit `ResultRelationInput` (`Original`, or the exact predecessor result
   being `Superseding`/`Invalidating`).
 - The public `RequestInput` and `ObservationInputs` use the same `tl-mltl`,
-  `tl-syntax`, and `quire-observation` type identities as the integration
+  `tl-syntax`, and `filament-observation` type identities as the integration
   cohort's branch-main dependencies, so a consumer can supply those types
   directly without conversion.
 
@@ -97,12 +97,12 @@ evaluation semantic they already carry.
   fact population. Of these, only the clock, the four progress/closure axes
   (decision-scope progress/closure, surrounding-execution progress/closure),
   and the completeness/availability assertions are echoed verbatim from the
-  independently supplied `quire_observation::authority` owner views, with no
+  independently supplied `filament_observation::authority` owner views, with no
   derivation between them. The formula and proposition-map references are, by
-  contrast, derived by quire-mltl itself: their `identity` is each supplied
+  contrast, derived by filament-mltl itself: their `identity` is each supplied
   document's own re-derived content identity and their `digest` a SHA-256 over
   that document's own canonical bytes — computed from the supplied
-  formula/proposition-map documents, not copied from any `quire_observation`
+  formula/proposition-map documents, not copied from any `filament_observation`
   owner view. The evaluator reference is not an `ArtifactReference` at all: it
   is a distinct `EvaluatorReference` (the closed evaluator identity)
   synthesized entirely in-crate from the request's selected lane, not read or
@@ -111,7 +111,7 @@ evaluation semantic they already carry.
   progress/closure subject/authority, and the completeness and availability
   assertions SHALL agree with that same subject/authority and population
   identity; the surrounding-execution progress/closure pair SHALL likewise
-  agree with each other and the clock. quire-mltl SHALL require the clock's
+  agree with each other and the clock. filament-mltl SHALL require the clock's
   selected range length to equal the admitted trace/history position count
   exactly, and SHALL refuse a timestamped-event clock family as unsupported.
 - For the past lane, the clock's selected range family SHALL agree with the
@@ -178,14 +178,14 @@ evaluation semantic they already carry.
 |---|---|---|
 | FR-001-AC-1 | Given valid independently-strict-read formula/proposition-map/trace-or-history/clock and all owner assertion views, `derive` produces one canonical request document with a domain-separated SHA-256 identity over its own canonical bytes, and `read` strict-reads it back to a constructor-private view only when every supplied owner input matches exactly. | Test |
 | FR-001-AC-2 | A future request accepts only formula-v1/non-past-operator graphs under a semantic profile consistent with the trace's closure, and a past request accepts only formula-v2/non-future-node graphs under an origin-complete history with an anchor at or before its through-position; every other combination is refused before evaluation. | Test |
-| FR-001-AC-3 | The clock, the four progress/closure axes, and the completeness/availability assertions are echoed verbatim from the supplied `quire_observation` owner views with no derivation between them, and a request whose clock/scope/authority identities disagree across those views is refused; the formula and proposition-map `ArtifactReference`s are independently derived from the supplied documents' own content identity and canonical bytes, and the evaluator reference is a distinct `EvaluatorReference` synthesized in-crate, neither read from a supplied view. | Test |
+| FR-001-AC-3 | The clock, the four progress/closure axes, and the completeness/availability assertions are echoed verbatim from the supplied `filament_observation` owner views with no derivation between them, and a request whose clock/scope/authority identities disagree across those views is refused; the formula and proposition-map `ArtifactReference`s are independently derived from the supplied documents' own content identity and canonical bytes, and the evaluator reference is a distinct `EvaluatorReference` synthesized in-crate, neither read from a supplied view. | Test |
 | FR-001-AC-4 | `evaluate` yields exactly one execution and one truth state per admitted request, sets `final_result` only for a completed Boolean, selects the settlement basis required by lane and closure, and downgrades an over-limit decision-support population to `ResourceIncomplete`/`Unavailable` with an empty support list instead of a partial one. | Test |
 | FR-001-AC-5 | A correction is accepted only when the predecessor's subject, correspondence, formula, proposition map, clock, evaluator, anchor, and lane exactly match; it receives a strictly greater revision and its own new identity, and the predecessor's bytes are never mutated. | Test |
 | FR-001-AC-6 | Exceeding any owner-declared resource ceiling on the request or the result refuses with a typed resource-incomplete outcome and no partial document is emitted; the same input one unit under the ceiling is admitted. | Test |
 | FR-001-AC-7 | A structurally valid request or result document whose bytes do not equal the canonical re-serialization of their own decoded value is refused with `OwnerReadErrorCode::NonCanonical`, even when every field value is otherwise valid. | Test |
 | FR-001-AC-8 | A formula referencing a `Proposition` node id absent from the supplied proposition map is refused with `ExpectedMismatch("propositionMap")` before evaluation begins; the same formula against a proposition map that includes every referenced id is admitted. | Test |
 | FR-001-AC-9 | For the past lane, a clock/history-binding pairing other than `EventPosition`/`EventPosition` or an exactly-agreeing `FixedSample`/`FixedSample` pair (nanosecond unit, denominator 1 on both epoch and period, numerators equal to the clock's `epochNanos`/`periodNanos`) is refused with `ExpectedMismatch("clockBinding")`. | Test |
-| FR-001-AC-10 | A consumer can construct `RequestInput` and `ObservationInputs` directly from the public `tl-mltl`, `tl-syntax`, and `quire-observation` branch-main cohort types; each field has one compile-time type identity with its owner crate, with no conversion or duplicate rev-pinned identity. | Compile test |
+| FR-001-AC-10 | A consumer can construct `RequestInput` and `ObservationInputs` directly from the public `tl-mltl`, `tl-syntax`, and `filament-observation` branch-main cohort types; each field has one compile-time type identity with its owner crate, with no conversion or duplicate rev-pinned identity. | Compile test |
 | FR-001-AC-11 | A validated superseding or invalidating result publicly exposes all canonical bytes of its admitted direct predecessor; an original exposes none. The retained direct predecessor remains complete and unchanged after its source value is dropped, without recursively retaining earlier lineage. Retention is admitted at the current input-byte ceiling and refuses one byte over before copying, even when the predecessor was admitted under a larger earlier ceiling. | Test |
 | FR-001-AC-12 | Non-evaluating supplied-predecessor validation accepts exactly the retained complete canonical bytes (or absence for an original), distinguishes missing, unexpected, and unequal bytes with typed errors, and rejects same-identity/different-value, truncated, extended, or identity-only offers without changing result bytes, usage, or predecessor bytes. | Test |
 | FR-001-AC-13 | `report::read` of a produced result is non-evaluating: under every owner ceiling (input bytes, JSON depth, string bytes, visited fields, formula nodes, positions, propositions, support, evaluation steps and recursion depth), measuring bytes, depth, string bytes and visited fields from the read bytes and requiring the recorded semantic usage to agree with the request, it decodes the typed wire, requires canonical bytes, content identity and internal state consistency, and binds the document to the supplied request and relation (request identity and digest, echoed request fields, lineage revision and predecessor digest, and, for a final result, the exact available decision-support identities) without invoking any evaluator. It carries the recorded execution, truth and settlement and never re-derives them, and refuses with a distinct typed `OwnerReadErrorCode` (`ResourceIncomplete`, `InvalidUtf8`, `InvalidJson`, `NonCanonical`, `ContractMismatch`, `IdentityMismatch`, `InvalidCombination`, `ExpectedMismatch`). | Test |
@@ -197,8 +197,8 @@ requirement's `evaluate` step delegates to and the prior form of this wire
 boundary the port preserves behaviorally. This `depends_on` edge points at
 FR-018 as it stands at authoring time, not a frozen artifact: TL-179 rewrites
 FR-018 into a generic owner boundary once `tl-mltl` drops its
-`quire-observation` dependency, and this requirement's own evaluation-delegation
-behavior is unaffected by that rewrite. `quire-observation` FR-004 supplies
+`filament-observation` dependency, and this requirement's own evaluation-delegation
+behavior is unaffected by that rewrite. `filament-observation` FR-004 supplies
 the `authority::{clock,progress,closure,completeness,availability}` owner
 artifacts this requirement reads and echoes. `tl-syntax` FR-014 supplies the
 strict formula and proposition-map documents this requirement admits.

@@ -18,14 +18,14 @@ version = 2
 [sources]
 unknown-registry = "deny"
 unknown-git = "deny"
-# quire-mltl is the one deliberate integration crate bridging tl-mltl's TL-owned evaluation
-# types to quire-observation's owner-assertion views, per the architect ruling
-# under agent-ix/quire-research (TL-175). quire-canonical is quire-observation's
+# filament-mltl is the one deliberate integration crate bridging tl-mltl's TL-owned evaluation
+# types to filament-observation's owner-assertion views, per the architect ruling
+# under agent-ix/quire-research (TL-175). quire-canonical is filament-observation's
 # own shared identity/provenance dependency, pulled in transitively.
 allow-git = [
     "https://github.com/agent-ix/tl-mltl",
     "https://github.com/agent-ix/tl-syntax.git",
-    "https://github.com/agent-ix/quire-observation",
+    "https://github.com/agent-ix/filament-observation",
     "https://github.com/agent-ix/quire-canonical",
     "https://github.com/agent-ix/ix-trace-rs",
 ]

@@ -1,8 +1,8 @@
-//! Canonical `quire-mltl.temporal-assessment-request/v1` owner boundary.
+//! Canonical `filament-mltl.temporal-assessment-request/v1` owner boundary.
 //!
 //! Ported from `tl-mltl`'s `wire::request` (TL-178/TL-175). See FR-001.
 
-use quire_observation::authority::{
+use filament_observation::authority::{
     availability, clock, closure, completeness, progress, OpenClosed,
 };
 use serde::{Deserialize, Serialize};
@@ -19,7 +19,7 @@ use tl_mltl::{
 };
 
 /// Immutable request contract label.
-pub const CONTRACT: &str = "quire-mltl.temporal-assessment-request/v1";
+pub const CONTRACT: &str = "filament-mltl.temporal-assessment-request/v1";
 /// Exact checked-in JSON Schema bytes for [`CONTRACT`].
 pub const SCHEMA_BYTES: &[u8] =
     include_bytes!("../schemas/temporal-assessment-request-v1.schema.json");
