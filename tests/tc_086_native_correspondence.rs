@@ -4,14 +4,14 @@
 //! content-identity preimage membership, verbatim propagation into the
 //! result and Contract-IR mapping, correction-chain identity stability,
 //! read-time and evaluation-time refusal, unknown-contract-label refusal,
-//! and the no-`quire-contract-ir`-dependency boundary (FR-004-AC-1..7).
+//! and the no-`filament-contract-ir`-dependency boundary (FR-004-AC-1..7).
 //! Reuses `tc_084_temporal_owner_wire.rs`'s owner-admission fixtures via
 //! `tests/support`.
 
 mod support;
 
-use quire_mltl::contract_ir::{self, MappedOutcome, MappingSelection, NonValueKind};
-use quire_mltl::{report, request};
+use filament_mltl::contract_ir::{self, MappedOutcome, MappingSelection, NonValueKind};
+use filament_mltl::{report, request};
 use support::{
     admit_history, admit_request, future_formula, observations, owner_views,
     owner_views_with_clock, past_formula, proposition_map, trace_document, FixtureClock,
@@ -456,7 +456,7 @@ fn tc_086_read_time_refusals_never_produce_a_partial_document() {
     assert_eq!(error.code(), OwnerReadErrorCode::ExpectedMismatch);
     assert_eq!(error.field(), "clockBinding");
 
-    // An absent binding on a past request cannot reach quire-mltl's own
+    // An absent binding on a past request cannot reach filament-mltl's own
     // `clockBinding` check at all: `tl_mltl::PositionHistoryDocument::new`
     // refuses to construct a history with no clock binding one layer below
     // this crate's boundary (`HistoryError::MissingClock`). FR-005's census
@@ -602,17 +602,17 @@ fn tc_086_unknown_contract_label_is_refused() {
         (
             request_document.bytes(),
             request::CONTRACT,
-            "quire-mltl.temporal-assessment-request/v0-unknown",
+            "filament-mltl.temporal-assessment-request/v0-unknown",
         ),
         (
             result_document.bytes(),
             report::CONTRACT,
-            "quire-mltl.temporal-assessment-result/v0-unknown",
+            "filament-mltl.temporal-assessment-result/v0-unknown",
         ),
         (
             mapping_document.bytes(),
             contract_ir::CONTRACT,
-            "quire-mltl.contract-ir-result-map/v0-unknown",
+            "filament-mltl.contract-ir-result-map/v0-unknown",
         ),
     ] {
         let mutated = splice(
@@ -641,18 +641,18 @@ fn tc_086_unknown_contract_label_is_refused() {
 
 // Trace: TC-086, FR-004-AC-7
 #[test]
-fn tc_086_manifest_declares_no_quire_contract_ir_dependency() {
+fn tc_086_manifest_declares_no_filament_contract_ir_dependency() {
     let manifest = include_str!("../Cargo.toml");
     assert!(
-        !manifest.contains("quire-contract-ir"),
-        "quire-mltl must never depend on quire-contract-ir: that dependency \
+        !manifest.contains("filament-contract-ir"),
+        "filament-mltl must never depend on filament-contract-ir: that dependency \
          would close the TL-181 cycle ADR-002 and FR-004's own Non-goals \
          forbid"
     );
     let lock = include_str!("../Cargo.lock");
     assert!(
-        !lock.contains("name = \"quire-contract-ir\""),
-        "the lockfile must not resolve a transitive quire-contract-ir crate either"
+        !lock.contains("name = \"filament-contract-ir\""),
+        "the lockfile must not resolve a transitive filament-contract-ir crate either"
     );
 }
 

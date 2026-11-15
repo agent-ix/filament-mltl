@@ -16,9 +16,9 @@ mod support;
 
 use std::collections::BTreeSet;
 
-use quire_mltl::census::{self, ClassState};
-use quire_mltl::contract_ir::{self, MappedOutcome, MappingSelection, NonValueKind};
-use quire_mltl::{report, request};
+use filament_mltl::census::{self, ClassState};
+use filament_mltl::contract_ir::{self, MappedOutcome, MappingSelection, NonValueKind};
+use filament_mltl::{report, request};
 use support::{
     admit_history, admit_request, fixed_history_document, future_formula, history_document,
     observations, owner_views, owner_views_with_clock, past_formula, proposition_map,
@@ -146,7 +146,7 @@ fn tc_087_baseline_future_closed_trace_satisfied() {
 
 /// Covers: availability/contract-unavailable, mapped-outcome/non-value-unavailable.
 ///
-/// Hand-derived expectation: `quire_observation::authority::availability`'s
+/// Hand-derived expectation: `filament_observation::authority::availability`'s
 /// `contract-unavailable` dependency state means the mapping's own producer
 /// dependency chain is unavailable regardless of the underlying truth, so
 /// `contract_ir::outcome` reports `Unavailable` before it ever looks at
@@ -1034,11 +1034,11 @@ fn tc_087_census_report_carries_population_exclusions_and_blocked() {
 
 // Trace: TC-087, FR-005-AC-6
 #[test]
-fn tc_087_no_spec_or_test_file_embeds_a_quire_contract_ir_schema_vocabulary_or_fixture() {
+fn tc_087_no_spec_or_test_file_embeds_a_filament_contract_ir_schema_vocabulary_or_fixture() {
     // Deliberately scoped to `spec/` and `tests/`, exactly as FR-005-AC-6
     // states -- not `schemas/`, which legitimately holds this crate's *own*
     // checked-in JSON Schema documents (`request`/`report`/`contract_ir`),
-    // never `quire-contract-ir`'s.
+    // never `filament-contract-ir`'s.
     let mut files = Vec::new();
     for root in ["spec", "tests"] {
         collect_files(
@@ -1066,7 +1066,7 @@ fn tc_087_no_spec_or_test_file_embeds_a_quire_contract_ir_schema_vocabulary_or_f
                 assert!(
                     !text.contains(marker),
                     "{path:?} contains {marker:?}, which reads as an embedded JSON \
-                     Schema document -- quire-mltl's own schemas live under schemas/, \
+                     Schema document -- filament-mltl's own schemas live under schemas/, \
                      never spec/ or tests/, and no upstream schema may be copied in \
                      either"
                 );
@@ -1105,9 +1105,9 @@ fn tc_087_no_spec_or_test_file_embeds_a_quire_contract_ir_schema_vocabulary_or_f
     }
 }
 
-/// Every `quire-contract-ir` reference this crate carries is a *bounded
+/// Every `filament-contract-ir` reference this crate carries is a *bounded
 /// identity record* (contract labels, as short text), never a vocabulary table or fixture body copied out of
-/// `quire-contract-ir` -- proven directly by bounding every field's length,
+/// `filament-contract-ir` -- proven directly by bounding every field's length,
 /// rather than by scanning file text for a marker that might not appear.
 // Trace: TC-087, FR-005-AC-6
 #[test]

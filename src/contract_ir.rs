@@ -6,7 +6,7 @@
 //! map only from a constructor-private [`ValidatedTemporalResult`]. See
 //! FR-003.
 
-use quire_observation::authority::{availability, completeness};
+use filament_observation::authority::{availability, completeness};
 use serde::{Deserialize, Serialize};
 
 use tl_mltl::wire::common::{identity, is_sha256, produce, raw_sha256, read_expected};
@@ -16,7 +16,7 @@ use crate::report::{AssessmentExecution, ResultWire, TemporalTruth, ValidatedTem
 use crate::request::ArtifactReference;
 
 /// Immutable selected mapping contract label.
-pub const CONTRACT: &str = "quire-mltl.contract-ir-result-map/v1";
+pub const CONTRACT: &str = "filament-mltl.contract-ir-result-map/v1";
 /// Exact checked-in JSON Schema bytes for [`CONTRACT`].
 pub const SCHEMA_BYTES: &[u8] = include_bytes!("../schemas/contract-ir-result-map-v1.schema.json");
 
@@ -42,7 +42,7 @@ pub enum NonValueKind {
     ResourceIncomplete,
 }
 
-/// Value-or-non-value projection owned by quire-mltl.
+/// Value-or-non-value projection owned by filament-mltl.
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(tag = "kind", rename_all = "camelCase", deny_unknown_fields)]
 pub enum MappedOutcome {

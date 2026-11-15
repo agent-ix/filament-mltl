@@ -10,7 +10,7 @@
 4. The formula graph depth is computed.
 5. The lane checks match the formula to the input, as described in [how-it-works.md](how-it-works.md#lanes). The past lane also requires the anchor to be at or before the last history position.
 6. The formula nodes, trace or history positions, propositions and history span are within the limits.
-7. The clock, the four axis assertions, completeness and availability agree with each other, as described in [quire-observation.md](quire-observation.md).
+7. The clock, the four axis assertions, completeness and availability agree with each other, as described in [filament-observation.md](filament-observation.md).
 
 A request records the semantic profile, the operator profile, the evaluator identity (`tl-mltl.future-evaluator/v1` for the future lane), the anchor and the limits it was derived under. `request::read` rebuilds the request from the expected inputs and refuses if the supplied limits differ from the recorded ones.
 
@@ -33,13 +33,13 @@ A request or result that would exceed a limit is refused with `OwnerReadErrorCod
 
 ## dispatch
 
-`dispatch` reports which Quire observation contracts the crate consumes.
+`dispatch` reports which Filament observation contracts the crate consumes.
 
 | Contract | Label | Compatibility |
 | --- | --- | --- |
-| `TemporalAssessment` | `quire-mltl.temporal-assessment-request/v1` | Supported |
-| `RepairPlan` | `quire.observation.repair-plan/v1` | Unsupported |
-| `ClosedPopulationQuery` | `quire.observation.closed-population-query/v1` | Unsupported |
+| `TemporalAssessment` | `filament-mltl.temporal-assessment-request/v1` | Supported |
+| `RepairPlan` | `filament.observation.repair-plan/v1` | Unsupported |
+| `ClosedPopulationQuery` | `filament.observation.closed-population-query/v1` | Unsupported |
 
 `compatibility` answers without reading an artifact. `consume_temporal` forwards a temporal handoff to `request::derive` and returns the same result.
 

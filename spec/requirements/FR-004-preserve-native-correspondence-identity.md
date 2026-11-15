@@ -3,28 +3,28 @@ id: FR-004
 title: "Preserve native-correspondence identity losslessly across the request, result and Contract-IR mapping"
 type: FR
 relationships:
-  - target: ix://agent-ix/quire-mltl/MRS-001
+  - target: ix://agent-ix/filament-mltl/MRS-001
     type: implements
-  - target: ix://agent-ix/quire-mltl/FR-001
+  - target: ix://agent-ix/filament-mltl/FR-001
     type: depends_on
-  - target: ix://agent-ix/quire-mltl/FR-003
+  - target: ix://agent-ix/filament-mltl/FR-003
     type: depends_on
-  - target: ix://agent-ix/quire-contract-ir/FR-025
+  - target: ix://agent-ix/filament-contract-ir/FR-025
     type: references
-  - target: ix://agent-ix/quire-contract-ir/FR-026
+  - target: ix://agent-ix/filament-contract-ir/FR-026
     type: references
 ---
 # FR-004: Preserve native-correspondence identity losslessly across the request, result and Contract-IR mapping
 
 ## Description
 
-When a temporal assessment is derived on behalf of a native Quire
-correspondence, quire-mltl SHALL validate the supplied native subject and
+When a temporal assessment is derived on behalf of an FSL
+correspondence, filament-mltl SHALL validate the supplied native subject and
 correspondence identities, bind both into the request's content identity, and
 carry both verbatim into the result and the Contract-IR mapping, so that the
 consuming correspondence owner can join a mapped outcome back to the exact
 native subject and correspondence profile it constructed the request for.
-quire-mltl SHALL NOT derive, parse, interpret, default, or substitute either
+filament-mltl SHALL NOT derive, parse, interpret, default, or substitute either
 identity, and SHALL NOT own any native grammar, predicate semantics,
 correspondence derivation, or agreement decision.
 
@@ -33,7 +33,7 @@ correspondence derivation, or agreement decision.
 - The `subject_identity` and `correspondence_identity` text
   [FR-001](./FR-001-admit-temporal-assessment-requests-and-results.md) already
   admits on `RequestInput`.
-- The exact `quire-contract-ir` predicate-projection and
+- The exact `filament-contract-ir` predicate-projection and
   temporal-correspondence contract identities the caller selected, as
   identity text, not as types.
 - For a mapping: the constructor-private `ValidatedTemporalResult` and
@@ -58,10 +58,10 @@ correspondence derivation, or agreement decision.
 
 `subject_identity` names the checked native temporal subject the correspondence
 owner admitted. `correspondence_identity` names the correspondence profile
-under which that subject was lowered to a TL formula. quire-mltl treats both as
+under which that subject was lowered to a TL formula. filament-mltl treats both as
 closed identity text: it validates their shape and requires them present and
 non-empty, and it performs no other reading of them. It derives neither from
-the other, from the formula, or from any `quire_observation` owner view.
+the other, from the formula, or from any `filament_observation` owner view.
 
 Both fields are inside the preimage of the request's content identity. A
 request that differs only in its correspondence identity is therefore a
@@ -127,10 +127,10 @@ non-selected contract label rather than reading it permissively.
 No native grammar, predicate parser, predicate evaluator, signal-catalog
 derivation, clock/history correspondence derivation, agreement decision,
 Boolean coercion, callback, plugin, or trust flag. No dependency on
-`quire-contract-ir`: the correspondence reaches this crate as validated data
+`filament-contract-ir`: the correspondence reaches this crate as validated data
 inside a request, and the crate's dependency graph stays `tl-mltl`,
-`quire-observation` and `tl-syntax` (see
-[ADR-002](../decisions/ADR-002-quire-mltl-owns-the-native-correspondence-dimension.md)).
+`filament-observation` and `tl-syntax` (see
+[ADR-002](../decisions/ADR-002-filament-mltl-owns-the-native-correspondence-dimension.md)).
 
 ## Acceptance Criteria
 
@@ -142,7 +142,7 @@ inside a request, and the crate's dependency graph stays `tl-mltl`,
 | FR-004-AC-4 | A correction chain preserves both identities unchanged at every revision; a superseding or invalidating result that would change either identity is refused. | Test |
 | FR-004-AC-5 | Every read-time-refused correspondence class — including at least an unsupported clock family and a disagreeing past-lane clock binding — is refused during `derive`/`read`, before any result or mapping document exists, as a typed `OwnerReadError` naming the disagreeing field, and produces no partial document; an over-ceiling resource case discovered at read time is likewise refused as a typed `OwnerReadError` and never as a `NonValueKind`. | Test |
 | FR-004-AC-6 | Every evaluation-time-refused correspondence class — including at least an incompatible semantic profile or lane and an over-ceiling resource case discovered during evaluation — yields a typed `NonValueKind` in the emitted result and mapping naming the exact refused dimension, and never a Boolean, a pending truth, a defaulted value, or a silently dropped outcome. | Test |
-| FR-004-AC-7 | No public operation accepts a native grammar, predicate parser or evaluator, catalog derivation, correspondence derivation, agreement decision, Boolean coercion, callback, plugin, or trust flag, and the crate manifest declares no `quire-contract-ir` dependency. | Test |
+| FR-004-AC-7 | No public operation accepts a native grammar, predicate parser or evaluator, catalog derivation, correspondence derivation, agreement decision, Boolean coercion, callback, plugin, or trust flag, and the crate manifest declares no `filament-contract-ir` dependency. | Test |
 
 ## Dependencies
 
@@ -152,10 +152,10 @@ constrains, and on
 [FR-003](./FR-003-derive-contract-ir-result-mapping.md) for the mapping whose
 embedded wire content it makes load-bearing.
 
-It references `quire-contract-ir` FR-025 and FR-026 as the *consumer* contracts
+It references `filament-contract-ir` FR-025 and FR-026 as the *consumer* contracts
 this obligation exists to serve — FR-026 owns the correspondence, the
 construction of the TL artifacts, and the agreement decision, and joins a
 `TlMappedResultView` this crate supplies. The reference is deliberately not a
-`depends_on`: nothing in this requirement is gated on `quire-contract-ir`
+`depends_on`: nothing in this requirement is gated on `filament-contract-ir`
 landing anything, and the dependency between the crates runs
-`quire-contract-ir -> quire-mltl`, never the reverse.
+`filament-contract-ir -> filament-mltl`, never the reverse.

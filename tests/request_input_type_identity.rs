@@ -1,9 +1,9 @@
 //! Outside-consumer contract for the public request input (FR-001-AC-10).
 //!
 //! A generated crate declares the `branch = "main"` tl-syntax, tl-mltl and
-//! quire-observation dependencies itself and hands their types to
-//! `quire_mltl::request`. It only compiles when those dependencies resolve to
-//! the same packages quire-mltl uses.
+//! filament-observation dependencies itself and hands their types to
+//! `filament_mltl::request`. It only compiles when those dependencies resolve to
+//! the same packages filament-mltl uses.
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -11,8 +11,8 @@ use std::process::Command;
 
 use ix_trace_rs::trace;
 
-const CONSUMER_MAIN: &str = r#"use quire_mltl::request::{ObservationInputs, RequestInput, TemporalInput};
-use quire_observation::authority::{availability, clock, closure, completeness, progress};
+const CONSUMER_MAIN: &str = r#"use filament_mltl::request::{ObservationInputs, RequestInput, TemporalInput};
+use filament_observation::authority::{availability, clock, closure, completeness, progress};
 use tl_mltl::past::history::ValidatedPositionHistory;
 use tl_mltl::wire::ValidatedTrace;
 use tl_syntax::{FormulaDocument, PropositionMapDocument};
@@ -61,7 +61,7 @@ pub fn past(history: &ValidatedPositionHistory) -> TemporalInput<'_> {
 }
 "#;
 
-fn consumer_manifest(quire_mltl: &Path) -> String {
+fn consumer_manifest(filament_mltl: &Path) -> String {
     format!(
         r#"[package]
 name = "outside-consumer"
@@ -75,12 +75,12 @@ publish = false
 path = "src/lib.rs"
 
 [dependencies]
-quire-mltl = {{ path = {path:?} }}
+filament-mltl = {{ path = {path:?} }}
 tl-mltl = {{ version = "=0.3.0", git = "https://github.com/agent-ix/tl-mltl", branch = "main" }}
-quire-observation = {{ version = "=0.1.0", git = "https://github.com/agent-ix/quire-observation", branch = "main" }}
+filament-observation = {{ version = "=0.1.0", git = "https://github.com/agent-ix/filament-observation", branch = "fsl-rename" }}
 tl-syntax = {{ version = "=0.3.0", git = "https://github.com/agent-ix/tl-syntax.git", branch = "main", default-features = false, features = ["alloc", "serde"] }}
 "#,
-        path = quire_mltl.display().to_string()
+        path = filament_mltl.display().to_string()
     )
 }
 
@@ -95,7 +95,7 @@ fn outside_consumer_passes_main_cohort_types_into_request_input() {
     fs::create_dir_all(consumer.join("src")).expect("create consumer src dir");
     fs::write(consumer.join("Cargo.toml"), consumer_manifest(&root)).expect("write manifest");
     fs::write(consumer.join("src/lib.rs"), CONSUMER_MAIN).expect("write consumer source");
-    // Resolve the consumer's git dependencies to the commits quire-mltl locked,
+    // Resolve the consumer's git dependencies to the commits filament-mltl locked,
     // replacing any lock left by an earlier run.
     fs::copy(root.join("Cargo.lock"), consumer.join("Cargo.lock")).expect("copy Cargo.lock");
 

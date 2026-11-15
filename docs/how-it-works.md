@@ -6,9 +6,9 @@ The crate exchanges three canonical JSON documents. Each carries a `contractVers
 
 | Document | Module | Label |
 | --- | --- | --- |
-| Temporal assessment request | `request` | `quire-mltl.temporal-assessment-request/v1` |
-| Temporal assessment result | `report` | `quire-mltl.temporal-assessment-result/v1` |
-| Contract-IR result map | `contract_ir` | `quire-mltl.contract-ir-result-map/v1` |
+| Temporal assessment request | `request` | `filament-mltl.temporal-assessment-request/v1` |
+| Temporal assessment result | `report` | `filament-mltl.temporal-assessment-result/v1` |
+| Contract-IR result map | `contract_ir` | `filament-mltl.contract-ir-result-map/v1` |
 
 `request::derive` writes a request from owner-read inputs. `report::evaluate` evaluates a validated request and writes a result. `contract_ir::map` maps a validated result to a value or a non-value. Each module also has a `read` function that takes bytes plus the exact inputs the document should have been derived from. `read` re-derives the document (except `report::read`, which binds the recorded result to its request and relation without evaluating) and refuses with an `OwnerReadError` on any difference, including a stale identity, a different contract label, a non-canonical encoding or a resource ceiling exceeded. The three schemas are checked in under [`schemas/`](../schemas/).
 
@@ -39,22 +39,22 @@ The mapping embeds the whole source result, so a consumer can join the two witho
 
 ## Where the crate sits
 
-A formula passes through several crates on its way from text to a Quire outcome. quire-mltl is the last step.
+A formula passes through several crates on its way from text to a Filament outcome. filament-mltl is the last step.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="images/pipeline-dark.svg">
-  <img alt="A formula moves from text to a Quire outcome. tl-parse turns MLTL text into a formula document, tl-rewrite returns a rewritten document, and tl-mltl evaluates it against a trace. In tests, tl-oracle evaluates the same formula and trace independently and the verdicts are compared. quire-mltl maps the result to a Boolean Value or a typed NonValue reason. All documents use the vocabulary of tl-syntax." src="images/pipeline-light.svg">
+  <img alt="A formula moves from text to a Filament outcome. tl-parse turns MLTL text into a formula document, tl-rewrite returns a rewritten document, and tl-mltl evaluates it against a trace. In tests, tl-oracle evaluates the same formula and trace independently and the verdicts are compared. filament-mltl maps the result to a Boolean Value or a typed NonValue reason. All documents use the vocabulary of tl-syntax." src="images/pipeline-light.svg">
 </picture>
 
 The calling program moves documents from one stage to the next. The dependency structure between the crates is in the [README](../README.md#the-tl-stack).
 
 ## A worked example
 
-quire-mltl is step 6 of a debugging session that asks why a deadline requirement failed. The requirement is `F[0,3] p2`, the recorded trace has four instants, `[[], [0, 1], [1], [1]]`, and `p2` (signal `s2`) is absent at every one of them. tl-mltl returns `false` at time 0 and R2U2 agrees. This crate takes that result and decides whether `false` can be reported as a value.
+filament-mltl is step 6 of a debugging session that asks why a deadline requirement failed. The requirement is `F[0,3] p2`, the recorded trace has four instants, `[[], [0, 1], [1], [1]]`, and `p2` (signal `s2`) is absent at every one of them. tl-mltl returns `false` at time 0 and R2U2 agrees. This crate takes that result and decides whether `false` can be reported as a value.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="images/scenario-sequence-dark.svg">
-  <img alt="A deadline requirement fails on a recorded trace, and the engineer asks why. The engineer sends F[0,3] p2 to tl-parse and gets a formula document, binds p2 to signal s2 with tl-syntax, and sends the document to tl-rewrite, which reports Unchanged under the closed-trace profile. tl-mltl evaluates the formula and trace and returns false at time 0 with a buffer of 4 instants, and R2U2, which runs outside the crates, returns false at time 0 for the C2PO expression F[0,3](p2). tl-oracle evaluates the same formula and trace independently and returns false. quire-mltl maps the result to Value false. Numbered rings mark where to look at each step." src="images/scenario-sequence-light.svg">
+  <img alt="A deadline requirement fails on a recorded trace, and the engineer asks why. The engineer sends F[0,3] p2 to tl-parse and gets a formula document, binds p2 to signal s2 with tl-syntax, and sends the document to tl-rewrite, which reports Unchanged under the closed-trace profile. tl-mltl evaluates the formula and trace and returns false at time 0 with a buffer of 4 instants, and R2U2, which runs outside the crates, returns false at time 0 for the C2PO expression F[0,3](p2). tl-oracle evaluates the same formula and trace independently and returns false. filament-mltl maps the result to Value false. Numbered rings mark where to look at each step." src="images/scenario-sequence-light.svg">
 </picture>
 
 At this step, look at three things:
@@ -81,7 +81,7 @@ outcome Value { value: false }
 incomplete: truth Violated outcome NonValue { reason: Incomplete }
 ```
 
-The first two lines come from the complete, available views in the fixtures. The third line comes from the same request with the `incomplete` completeness view: the truth is still `violated`, and the mapped outcome is the non-value `Incomplete`. These views are test fixtures, not facts produced by quire-observation for the R2U2 case.
+The first two lines come from the complete, available views in the fixtures. The third line comes from the same request with the `incomplete` completeness view: the truth is still `violated`, and the mapped outcome is the non-value `Incomplete`. These views are test fixtures, not facts produced by filament-observation for the R2U2 case.
 
 The test `tc_084_owner_axes_remain_independent_and_non_values_are_total` runs 192 combinations of progress, closure, completeness and availability views and checks the mapped outcome of each against the order of checks above. It passes on this checkout.
 

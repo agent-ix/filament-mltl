@@ -8,7 +8,7 @@ quality_attribute: compliance
 
 ## Statement
 
-Every wire document quire-mltl exchanges SHALL use an explicit supported
+Every wire document filament-mltl exchanges SHALL use an explicit supported
 schema identity. Agent-produced requests, results, QObs
 compatibility dispositions, and Contract-IR mappings SHALL remain distinct
 from human approval and consuming-project validation.
@@ -21,12 +21,12 @@ documents and QObs C00 compatibility dispositions are in scope.
 
 ## Rationale
 
-quire-mltl is the one deliberate exception to `tl-mltl`'s independence from
-the Quire ecosystem (see [MRS-001](../spec.md)); it is genuinely
-Quire-owned where `tl-mltl` is not. Unidentified schema drift at this
+filament-mltl is the one deliberate exception to `tl-mltl`'s independence from
+the Filament ecosystem (see [MRS-001](../spec.md)); it is genuinely
+Filament-owned where `tl-mltl` is not. Unidentified schema drift at this
 specific bridge would silently reintroduce the
 coupling `tl-mltl`'s own independence exists to avoid, and would let a
-Quire-shaped result claim authority it does not have.
+Filament-shaped result claim authority it does not have.
 
 ## Measurement and Evaluation
 

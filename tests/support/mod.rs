@@ -18,12 +18,12 @@
 
 #![allow(dead_code)]
 
-use quire_mltl::request;
-use quire_observation::authority::{
+use filament_mltl::request;
+use filament_observation::authority::{
     self, AuthoritySelection, Context, History, Limits as ObservationLimits, OpenClosed,
     SubjectSelection, TemporalBoundary,
 };
-use quire_observation::{
+use filament_observation::{
     admit, AdmissionOutcome, AdmissionRequest, AdmittedRecord, AdmittedStaticBundle, Anchor,
     ClockRange, Digest, Identity, Member, ObservationBinding, PackageSelection,
     ProducerConfiguration, ProducerDigest, QualifiedObservation, QualifiedSubject, ResourceLimits,
@@ -61,7 +61,7 @@ pub(crate) struct OwnerViews {
 pub(crate) enum FixtureClock {
     EventPosition,
     FixedSample,
-    /// Half-open timestamped-event range. `quire-mltl` never admits this
+    /// Half-open timestamped-event range. `filament-mltl` never admits this
     /// clock family (FR-004-AC-5): it exists solely so `tc_087` can build a
     /// read-time-refused `clockFamily` fixture through the same owner
     /// admission path every other clock family uses.
@@ -146,13 +146,13 @@ pub(crate) fn digest(value: u8) -> Digest {
 }
 
 /// Builds one admitted producer-interface-1.2 static bundle from
-/// `quire_observation`'s own local admission surface.
+/// `filament_observation`'s own local admission surface.
 ///
-/// `quire_observation` used to consume `filament-core-data`'s
+/// `filament_observation` used to consume `filament-core-data`'s
 /// `agent-ix-baseline-producer` crate for this shape; that crate is deleted
 /// from FCD's own tree (FCD issue #144: producer-interface-1.2 admission
-/// doesn't belong in FCD). `quire_observation` now implements this admission
-/// surface itself (`quire_observation::producer`, re-exported at its crate
+/// doesn't belong in FCD). `filament_observation` now implements this admission
+/// surface itself (`filament_observation::producer`, re-exported at its crate
 /// root), modeling only the fields its own production code reads:
 /// `bundleIdentity`, `bundleRevision`, `digest`, `interfaceVersion` and a
 /// `configuration` selection (identity + digest). This crate's own

@@ -3,31 +3,31 @@
 //! This module owns only the registry's *classification data* — which
 //! classes exist, how each one is classified (`applicable`, `excluded`, or
 //! `blocked`). It holds no fixture bytes and calls none of this crate's
-//! `derive`/`evaluate`/`read`/`map` paths: fixtures require `quire_observation`
+//! `derive`/`evaluate`/`read`/`map` paths: fixtures require `filament_observation`
 //! admission machinery, so building and replaying them is the
 //! integration test suite's job (`tests/tc_087_native_correspondence_census.rs`),
 //! not this library's. See FR-005 and
-//! `spec/decisions/ADR-002-quire-mltl-owns-the-native-correspondence-dimension.md`.
+//! `spec/decisions/ADR-002-filament-mltl-owns-the-native-correspondence-dimension.md`.
 
-/// One `quire-contract-ir` contract this crate's supplier obligation is
+/// One `filament-contract-ir` contract this crate's supplier obligation is
 /// measured against, referenced by label only — never by content copied out
-/// of `quire-contract-ir`, which would put another repository's content in
+/// of `filament-contract-ir`, which would put another repository's content in
 /// this one (FR-005-AC-6).
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct CounterpartContract {
-    /// Exact `quire-contract-ir` contract label, e.g. `"FR-026"`.
+    /// Exact `filament-contract-ir` contract label, e.g. `"FR-026"`.
     pub label: &'static str,
     /// This crate's own wire contract label for the exchanged document
     /// (`contract_ir::CONTRACT`, `report::CONTRACT`, or `request::CONTRACT`).
     pub exchanged_contract: &'static str,
 }
 
-/// `quire-contract-ir` FR-026's native/TL temporal-correspondence contract.
+/// `filament-contract-ir` FR-026's native/TL temporal-correspondence contract.
 /// FR-026 "joins a `TlMappedResultView`" — the exact document this crate's
 /// `contract_ir` module supplies — so the exchanged document here is that
 /// mapping.
 pub const QUIRE_CONTRACT_IR_FR_026: CounterpartContract = CounterpartContract {
-    label: "quire-contract-ir.FR-026",
+    label: "filament-contract-ir.FR-026",
     exchanged_contract: crate::contract_ir::CONTRACT,
 };
 
@@ -71,7 +71,7 @@ pub struct BlockedClass {
 pub struct ApplicableClass {
     /// Name of the test-module function producing this class's fixture.
     pub fixture_id: &'static str,
-    /// The `quire-contract-ir` counterpart contract(s) this class's mapped
+    /// The `filament-contract-ir` counterpart contract(s) this class's mapped
     /// outcome is measured against, if the class reaches a mapped outcome.
     pub counterpart: Option<CounterpartContract>,
 }
@@ -181,7 +181,7 @@ pub const REGISTRY: &[RegistryEntry] = &[
                 `validate_without_digest` (tl-mltl src/past/mod.rs) requires \
                 `self.clock.as_ref().ok_or(HistoryError::MissingClock)?` before any \
                 document is constructed; a `PositionHistoryDocument` with `clock: None` \
-                cannot exist as a value at all, so quire-mltl's own past-lane clock-binding \
+                cannot exist as a value at all, so filament-mltl's own past-lane clock-binding \
                 check (request.rs::validate_clock_scope) can never observe an admitted \
                 history with an absent binding to refuse -- this class is invalid by \
                 construction one layer below this crate's own boundary, proven directly by \

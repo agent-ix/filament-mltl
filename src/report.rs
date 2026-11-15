@@ -1,4 +1,4 @@
-//! Canonical `quire-mltl.temporal-assessment-result/v1` owner boundary.
+//! Canonical `filament-mltl.temporal-assessment-result/v1` owner boundary.
 //!
 //! Ported from `tl-mltl`'s `wire::report` (TL-178/TL-175). Behavior is
 //! unchanged; evaluation itself is delegated entirely to `tl-mltl`'s
@@ -6,7 +6,7 @@
 
 use std::collections::{BTreeMap, BTreeSet};
 
-use quire_observation::authority::completeness;
+use filament_observation::authority::completeness;
 use serde::{Deserialize, Serialize};
 
 use tl_mltl::wire::common::{identity, is_sha256, produce, raw_sha256};
@@ -23,7 +23,7 @@ use crate::request::{
 };
 
 /// Immutable temporal result contract label.
-pub const CONTRACT: &str = "quire-mltl.temporal-assessment-result/v1";
+pub const CONTRACT: &str = "filament-mltl.temporal-assessment-result/v1";
 /// Exact checked-in JSON Schema bytes for [`CONTRACT`].
 pub const SCHEMA_BYTES: &[u8] =
     include_bytes!("../schemas/temporal-assessment-result-v1.schema.json");

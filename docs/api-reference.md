@@ -55,7 +55,7 @@ The crate has five public modules: `request`, `report`, `contract_ir`, `dispatch
 | `Contract` | `TemporalAssessment`, `RepairPlan`, `ClosedPopulationQuery`. `label()` returns the wire label. |
 | `compatibility(contract)` | Returns `Compatibility::Supported` or `Compatibility::Unsupported` without inspecting an artifact. |
 | `consume_temporal(input, limits)` | Forwards to `request::derive`. |
-| `REPAIR_PLAN_CONTRACT`, `CLOSED_POPULATION_QUERY_CONTRACT` | The labels of the two contracts that quire-observation owns. |
+| `REPAIR_PLAN_CONTRACT`, `CLOSED_POPULATION_QUERY_CONTRACT` | The labels of the two contracts that filament-observation owns. |
 
 ## census
 
@@ -66,4 +66,4 @@ The crate has five public modules: `request`, `report`, `contract_ir`, `dispatch
 | `ClassState` | `Applicable(ApplicableClass)`, `Excluded(ExcludedClass)` or `Blocked(BlockedClass)`. |
 | `census()` | Returns a `CensusReport` with the total and the applicable, excluded and blocked tokens. |
 | `applicable_fixture_ids()` | The sorted, deduplicated fixture names of the applicable classes. |
-| `CounterpartContract` | A quire-contract-ir contract named by label, with the exchanged document's contract label. |
+| `CounterpartContract` | A filament-contract-ir contract named by label, with the exchanged document's contract label. |
