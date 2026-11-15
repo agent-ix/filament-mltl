@@ -77,7 +77,7 @@ path = "src/lib.rs"
 [dependencies]
 filament-mltl = {{ path = {path:?} }}
 tl-mltl = {{ version = "=0.3.0", git = "https://github.com/agent-ix/tl-mltl", branch = "main" }}
-filament-observation = {{ version = "=0.1.0", git = "https://github.com/agent-ix/filament-observation", branch = "fsl-rename" }}
+filament-observation = {{ version = "=0.1.0", git = "https://github.com/agent-ix/filament-observation", branch = "main" }}
 tl-syntax = {{ version = "=0.3.0", git = "https://github.com/agent-ix/tl-syntax.git", branch = "main", default-features = false, features = ["alloc", "serde"] }}
 "#,
         path = filament_mltl.display().to_string()
