@@ -1,6 +1,6 @@
 //! Outside-consumer contract for the public request input (FR-001-AC-10).
 //!
-//! A generated crate declares the `branch = "main"` tl-syntax, tl-mltl and
+//! A generated crate declares the pinned-tag tl-syntax, tl-mltl and
 //! filament-observation dependencies itself and hands their types to
 //! `filament_mltl::request`. It only compiles when those dependencies resolve to
 //! the same packages filament-mltl uses.
@@ -76,9 +76,9 @@ path = "src/lib.rs"
 
 [dependencies]
 filament-mltl = {{ path = {path:?} }}
-tl-mltl = {{ version = "=0.3.0", git = "https://github.com/agent-ix/tl-mltl", branch = "main" }}
+tl-mltl = {{ version = "=0.4.1", git = "https://github.com/agent-ix/tl-mltl", tag = "v0.4.1" }}
 filament-observation = {{ version = "=0.1.0", git = "https://github.com/agent-ix/filament-observation", branch = "main" }}
-tl-syntax = {{ version = "=0.3.0", git = "https://github.com/agent-ix/tl-syntax.git", branch = "main", default-features = false, features = ["alloc", "serde"] }}
+tl-syntax = {{ version = "=0.4.0", git = "https://github.com/agent-ix/tl-syntax.git", tag = "v0.4.0", default-features = false, features = ["alloc", "serde"] }}
 "#,
         path = filament_mltl.display().to_string()
     )

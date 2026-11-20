@@ -31,6 +31,7 @@
 mod support;
 
 use filament_mltl::contract_ir::{self, MappedOutcome, MappingSelection, NonValueKind};
+use filament_mltl::OwnerReadErrorCode;
 use filament_mltl::{dispatch, report, request};
 use filament_observation::authority;
 use serde_json::Value;
@@ -41,8 +42,8 @@ use support::{
     trace_document, FixtureClock,
 };
 use tl_mltl::past::{history, requirement, result};
+use tl_mltl::wire::OwnerLimits;
 use tl_mltl::wire::{command, trace};
-use tl_mltl::wire::{OwnerLimits, OwnerReadErrorCode};
 use tl_mltl::{
     analyze_required_history, CommandDocument, CommandSchemaVersion, Operation,
     PastEvaluationLimits, PastEvaluationRelationInput, TraceDocument, TraceSchemaVersion,
@@ -906,7 +907,10 @@ fn tc_084_exact_and_one_over_limits_cover_each_owner_dimension() {
         } else {
             trace::read(document.bytes(), &value, limits).unwrap_err()
         };
-        assert_eq!(error.code(), OwnerReadErrorCode::ResourceIncomplete);
+        assert_eq!(
+            OwnerReadErrorCode::from(error.code()),
+            OwnerReadErrorCode::ResourceIncomplete
+        );
     }
 
     let history_value = history_document("history:limits", 1, [true, false]);
@@ -921,16 +925,18 @@ fn tc_084_exact_and_one_over_limits_cover_each_owner_dimension() {
     )
     .unwrap();
     assert_eq!(
-        history::read(
-            history_document.bytes(),
-            &history_value,
-            OwnerLimits {
-                max_history_span: 0,
-                ..OwnerLimits::default()
-            },
-        )
-        .unwrap_err()
-        .code(),
+        OwnerReadErrorCode::from(
+            history::read(
+                history_document.bytes(),
+                &history_value,
+                OwnerLimits {
+                    max_history_span: 0,
+                    ..OwnerLimits::default()
+                },
+            )
+            .unwrap_err()
+            .code()
+        ),
         OwnerReadErrorCode::ResourceIncomplete
     );
 
@@ -943,7 +949,10 @@ fn tc_084_exact_and_one_over_limits_cover_each_owner_dimension() {
         },
     )
     .unwrap_err();
-    assert_eq!(trace_error.code(), OwnerReadErrorCode::ResourceIncomplete);
+    assert_eq!(
+        OwnerReadErrorCode::from(trace_error.code()),
+        OwnerReadErrorCode::ResourceIncomplete
+    );
 
     let decision = owner_views("decision-limits", 2);
     let surrounding = owner_views("surrounding-limits", 2);

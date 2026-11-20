@@ -7,8 +7,9 @@
 //! outside this crate and are represented by explicit compatibility
 //! dispositions rather than projections. See FR-002.
 
+use crate::owner_error::OwnerReadError;
 use filament_observation::authority::{query, repair};
-use tl_mltl::wire::{OwnerLimits, OwnerReadError};
+use tl_mltl::wire::OwnerLimits;
 
 use crate::request;
 

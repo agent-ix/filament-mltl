@@ -7,11 +7,12 @@ use filament_mltl::report::{
     ValidatedTemporalResult,
 };
 use filament_mltl::request::ValidatedTemporalRequest;
+use filament_mltl::OwnerReadErrorCode;
 use support::{
     admit_request, future_formula, future_request_input, observations, owner_views,
     proposition_map, trace_document,
 };
-use tl_mltl::wire::{trace, OwnerLimits, OwnerReadErrorCode};
+use tl_mltl::wire::{trace, OwnerLimits};
 use tl_syntax::SemanticProfile;
 
 fn admitted_request() -> ValidatedTemporalRequest {
