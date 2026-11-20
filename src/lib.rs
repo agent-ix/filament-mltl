@@ -12,5 +12,8 @@
 pub mod census;
 pub mod contract_ir;
 pub mod dispatch;
+pub mod owner_error;
 pub mod report;
 pub mod request;
+
+pub use owner_error::{OwnerReadError, OwnerReadErrorCode};

@@ -11,12 +11,13 @@
 mod support;
 
 use filament_mltl::contract_ir::{self, MappedOutcome, MappingSelection, NonValueKind};
+use filament_mltl::OwnerReadErrorCode;
 use filament_mltl::{report, request};
 use support::{
     admit_history, admit_request, future_formula, observations, owner_views,
     owner_views_with_clock, past_formula, proposition_map, trace_document, FixtureClock,
 };
-use tl_mltl::wire::{trace, OwnerLimits, OwnerReadErrorCode};
+use tl_mltl::wire::{trace, OwnerLimits};
 use tl_syntax::SemanticProfile;
 
 fn base_input<'a>(

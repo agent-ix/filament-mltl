@@ -18,13 +18,14 @@ use std::collections::BTreeSet;
 
 use filament_mltl::census::{self, ClassState};
 use filament_mltl::contract_ir::{self, MappedOutcome, MappingSelection, NonValueKind};
+use filament_mltl::OwnerReadErrorCode;
 use filament_mltl::{report, request};
 use support::{
     admit_history, admit_request, fixed_history_document, future_formula, history_document,
     observations, owner_views, owner_views_with_clock, past_formula, proposition_map,
     trace_document, FixtureClock, OwnerViews,
 };
-use tl_mltl::wire::{trace, OwnerLimits, OwnerReadErrorCode};
+use tl_mltl::wire::{trace, OwnerLimits};
 use tl_syntax::{FormulaDocument, PropositionMapDocument, SemanticProfile};
 
 fn base_input<'a>(

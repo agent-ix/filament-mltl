@@ -4,13 +4,14 @@ mod support;
 
 use filament_mltl::report::{self, ResultRelationInput, TemporalTruth, ValidatedTemporalResult};
 use filament_mltl::request::ValidatedTemporalRequest;
+use filament_mltl::{OwnerReadError, OwnerReadErrorCode};
 use ix_trace_rs::trace;
 use sha2::{Digest, Sha256};
 use support::{
     admit_request, future_formula, future_request_input, observations, owner_views,
     proposition_map, trace_document,
 };
-use tl_mltl::wire::{trace, OwnerLimits, OwnerReadError, OwnerReadErrorCode};
+use tl_mltl::wire::{trace, OwnerLimits};
 use tl_syntax::SemanticProfile;
 
 fn admitted_request() -> ValidatedTemporalRequest {
