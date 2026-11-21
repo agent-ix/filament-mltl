@@ -100,7 +100,7 @@ fn outside_consumer_passes_main_cohort_types_into_request_input() {
     fs::copy(root.join("Cargo.lock"), consumer.join("Cargo.lock")).expect("copy Cargo.lock");
 
     let output = Command::new(env!("CARGO"))
-        .args(["check", "--offline", "--manifest-path"])
+        .args(["check", "--offline", "-j1", "--manifest-path"])
         .arg(consumer.join("Cargo.toml"))
         .env("CARGO_TARGET_DIR", consumer.join("target"))
         .output()
