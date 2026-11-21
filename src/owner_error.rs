@@ -111,33 +111,3 @@ impl fmt::Display for OwnerReadError {
 }
 
 impl std::error::Error for OwnerReadError {}
-
-/// Runs tl-mltl's `read_expected` with a validator that may refuse with the
-/// filament-mltl-only codes. tl-mltl's validator slot carries only its own
-/// error type, so the refusal is parked in a local cell and a placeholder
-/// refusal is returned; the parked error replaces whatever tl-mltl reports.
-pub(crate) fn read_expected<T, F>(
-    bytes: &[u8],
-    expected: &T,
-    limits: tl_mltl::wire::OwnerLimits,
-    validate: F,
-) -> Result<(T, OwnerUsage), OwnerReadError>
-where
-    T: serde::de::DeserializeOwned + serde::Serialize + Eq,
-    F: FnOnce(&T, tl_mltl::wire::OwnerLimits) -> Result<OwnerUsage, OwnerReadError>,
-{
-    let parked = std::cell::RefCell::new(None);
-    let result =
-        tl_mltl::wire::common::read_expected(bytes, expected, limits, |value, effective| {
-            validate(value, effective).map_err(|error| {
-                let placeholder =
-                    TlError::new(TlCode::InvalidCombination, error.field(), error.usage());
-                *parked.borrow_mut() = Some(error);
-                placeholder
-            })
-        });
-    match result {
-        Ok(value) => Ok(value),
-        Err(tl_error) => Err(parked.into_inner().unwrap_or_else(|| tl_error.into())),
-    }
-}
