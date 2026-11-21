@@ -1,6 +1,6 @@
 //! Outside-consumer contract for the public request input (FR-001-AC-10).
 //!
-//! A generated crate declares the `branch = "main"` tl-syntax, tl-mltl and
+//! A generated crate declares the git-revision tl-syntax, tl-mltl and
 //! filament-observation dependencies itself and hands their types to
 //! `filament_mltl::request`. It only compiles when those dependencies resolve to
 //! the same packages filament-mltl uses.
@@ -76,9 +76,9 @@ path = "src/lib.rs"
 
 [dependencies]
 filament-mltl = {{ path = {path:?} }}
-tl-mltl = {{ version = "=0.3.0", git = "https://github.com/agent-ix/tl-mltl", branch = "main" }}
+tl-mltl = {{ version = "=0.4.1", git = "https://github.com/agent-ix/tl-mltl", rev = "06cda7776a3566ae90e223c3bc286c254618d39a" }}
 filament-observation = {{ version = "=0.1.0", git = "https://github.com/agent-ix/filament-observation", branch = "main" }}
-tl-syntax = {{ version = "=0.3.0", git = "https://github.com/agent-ix/tl-syntax.git", branch = "main", default-features = false, features = ["alloc", "serde"] }}
+tl-syntax = {{ version = "=0.4.0", git = "https://github.com/agent-ix/tl-syntax.git", rev = "9f7b1c868df605cb6e885291db95a948cd08829c", default-features = false, features = ["alloc", "serde"] }}
 "#,
         path = filament_mltl.display().to_string()
     )
@@ -100,7 +100,7 @@ fn outside_consumer_passes_main_cohort_types_into_request_input() {
     fs::copy(root.join("Cargo.lock"), consumer.join("Cargo.lock")).expect("copy Cargo.lock");
 
     let output = Command::new(env!("CARGO"))
-        .args(["check", "--offline", "--manifest-path"])
+        .args(["check", "--offline", "-j1", "--manifest-path"])
         .arg(consumer.join("Cargo.toml"))
         .env("CARGO_TARGET_DIR", consumer.join("target"))
         .output()

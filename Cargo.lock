@@ -373,8 +373,8 @@ checksum = "fd3ca314f692efd6c868f8408f53fe444634a845f96c028b97d35f6a1f79f0ee"
 
 [[package]]
 name = "tl-mltl"
-version = "0.3.0"
-source = "git+https://github.com/agent-ix/tl-mltl?branch=main#e032a3e8be4da92590ddf4cbe33ffa56279eddaf"
+version = "0.4.1"
+source = "git+https://github.com/agent-ix/tl-mltl?rev=06cda7776a3566ae90e223c3bc286c254618d39a#06cda7776a3566ae90e223c3bc286c254618d39a"
 dependencies = [
  "serde",
  "serde_json",
@@ -384,8 +384,8 @@ dependencies = [
 
 [[package]]
 name = "tl-syntax"
-version = "0.3.0"
-source = "git+https://github.com/agent-ix/tl-syntax.git?branch=main#d97d3d732a8f161337bb57d3559d82bae9d38a5d"
+version = "0.4.0"
+source = "git+https://github.com/agent-ix/tl-syntax.git?rev=9f7b1c868df605cb6e885291db95a948cd08829c#9f7b1c868df605cb6e885291db95a948cd08829c"
 dependencies = [
  "serde",
  "serde_json",

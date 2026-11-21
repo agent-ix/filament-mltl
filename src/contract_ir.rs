@@ -9,8 +9,9 @@
 use filament_observation::authority::{availability, completeness};
 use serde::{Deserialize, Serialize};
 
+use crate::owner_error::{OwnerReadError, OwnerReadErrorCode};
 use tl_mltl::wire::common::{identity, is_sha256, produce, raw_sha256, read_expected};
-use tl_mltl::wire::{OwnerLimits, OwnerReadError, OwnerReadErrorCode, OwnerUsage};
+use tl_mltl::wire::{OwnerLimits, OwnerUsage};
 
 use crate::report::{AssessmentExecution, ResultWire, TemporalTruth, ValidatedTemporalResult};
 use crate::request::ArtifactReference;
