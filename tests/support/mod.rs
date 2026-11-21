@@ -260,7 +260,7 @@ pub(crate) fn qualified_with_clock(
             visibility: Visibility::External,
             anchor: fixture_clock.anchor(),
             event_time_nanos: 0,
-            ingestion_time_nanos: 1,
+            ingestion_time_nanos: Some(1),
             causal_relationship_identity: None,
             clock_identity: id(fixture_clock.identity()),
             clock_revision: id("1"),
@@ -363,6 +363,7 @@ pub(crate) fn owner_views_with_clock(
     let completeness = |status: authority::completeness::FactStatus, observed: bool| {
         let selection = authority::completeness::Selection::new(
             id(format!("boundary:{tag}")),
+            fixture_clock.boundary(OpenClosed::Closed, positions),
             vec![authority::completeness::Fact::new(
                 id(format!("member:{tag}")),
                 observed.then(|| qualified.records()[0].identity.clone()),
