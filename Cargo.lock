@@ -99,7 +99,7 @@ dependencies = [
 [[package]]
 name = "filament-observation"
 version = "0.1.1"
-source = "git+https://github.com/agent-ix/filament-observation?rev=baa30aa5b474fad106be4be59fbaeba3fde6317b#baa30aa5b474fad106be4be59fbaeba3fde6317b"
+source = "git+https://github.com/agent-ix/filament-observation?rev=a583c51260420829c0cd99b24c3af96311de05b2#a583c51260420829c0cd99b24c3af96311de05b2"
 dependencies = [
  "filament-exact",
  "filament-semantic-value",
