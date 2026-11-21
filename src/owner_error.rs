@@ -6,8 +6,6 @@
 //! tl-mltl code plus those two, with identical wire labels, and
 //! [`OwnerReadError`] converts losslessly from tl-mltl's error.
 
-use std::fmt;
-
 use tl_mltl::wire::{OwnerReadError as TlError, OwnerReadErrorCode as TlCode, OwnerUsage};
 
 /// Stable machine-readable refusal codes of the filament-mltl owner readers.
@@ -66,7 +64,8 @@ impl From<TlCode> for OwnerReadErrorCode {
 }
 
 /// Typed fail-closed owner boundary error.
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq, thiserror::Error)]
+#[error("{}: {field}", .code.as_str())]
 pub struct OwnerReadError {
     code: OwnerReadErrorCode,
     field: &'static str,
@@ -103,11 +102,3 @@ impl From<TlError> for OwnerReadError {
         Self::new(error.code().into(), error.field(), error.usage())
     }
 }
-
-impl fmt::Display for OwnerReadError {
-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(formatter, "{}: {}", self.code.as_str(), self.field)
-    }
-}
-
-impl std::error::Error for OwnerReadError {}
