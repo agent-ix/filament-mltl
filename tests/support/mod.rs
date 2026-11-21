@@ -363,6 +363,7 @@ pub(crate) fn owner_views_with_clock(
     let completeness = |status: authority::completeness::FactStatus, observed: bool| {
         let selection = authority::completeness::Selection::new(
             id(format!("boundary:{tag}")),
+            fixture_clock.boundary(OpenClosed::Closed, positions),
             vec![authority::completeness::Fact::new(
                 id(format!("member:{tag}")),
                 observed.then(|| qualified.records()[0].identity.clone()),
