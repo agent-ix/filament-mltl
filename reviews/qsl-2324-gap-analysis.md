@@ -601,3 +601,11 @@ bindings:
     ac_id: FR-001-AC-13
     trace: correct
 ```
+
+## Disposition round 1 scope note
+
+Disposition round 1 reviewed frozen head 9bc4b59eea19dfb0196f8b2fb51fb9855424d1bc against the initial review at 33abda2b76db0c97d2f66ba7ea08877fb5a8e2bf. The seven shared labels now delegate directly to the corresponding TlCode::as_str; only ContractMismatch and IdentityMismatch remain locally spelled. all() enumerates all nine local codes and from_code performs exact lookup by reusing as_str, without a second spelling table. The fix changes only owner_error.rs and copies the initial review artifacts; no reader, evaluator, dependency, parser, validator or refusal precedence changes. No new finding was identified.
+
+fix1/catalog-tests.log records two meaningful passing unit regressions, zero failed or ignored: conversion preserves the upstream label, field, usage and display for all seven source variants; the catalog has nine unique labels, round-trips every code, and refuses unknown, empty, leading-space and lowercase forms. fix1/clippy.log and commands.txt record --locked --no-deps -j1 --lib --tests Clippy exit 0; rustfmt and diff --check pass. The original six focused runtime results remain applicable and were not rerun. No additional Cargo run by reviewer and no full gate or repository-wide assurance PASS is claimed.
+
+Current gap-analysis verdict remains **CONDITIONAL** for the recorded baseline and bounded scope. No gap finding required disposition. Matrix/coverage were not rerun because criteria and previously recorded trace bindings are unchanged apart from two new FR-001-AC-13 unit-test tags in owner_error.rs. The original static counts remain explicitly the initial-head snapshot; no new engine PASS or full-tree audit is asserted.
