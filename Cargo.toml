@@ -23,7 +23,7 @@ path = "src/lib.rs"
 
 [dependencies]
 tl-mltl = { version = "=0.4.1", git = "https://github.com/agent-ix/tl-mltl", rev = "06cda7776a3566ae90e223c3bc286c254618d39a" }
-filament-observation = { version = "=0.1.1", git = "https://github.com/agent-ix/filament-observation", rev = "004c7c4f934d15022d2a80b98c451d436109b44b" }
+filament-observation = { version = "=0.1.1", git = "https://github.com/agent-ix/filament-observation", rev = "6e0524170e83c6fae0c35a404592cd3cae24252f" }
 tl-syntax = { version = "=0.4.0", git = "https://github.com/agent-ix/tl-syntax.git", rev = "9f7b1c868df605cb6e885291db95a948cd08829c", default-features = false, features = ["alloc", "serde"] }
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.151"
