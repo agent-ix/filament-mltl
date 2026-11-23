@@ -1,0 +1,63 @@
+{
+  "figures": [
+    {
+      "id": "hero",
+      "width": 980, "height": 372,
+      "label": "filament-mltl takes an MLTL formula, a proposition map, a trace or history, a clock and the observation facts about that evidence, and derives one canonical temporal request. The request is evaluated by tl-mltl into one result, and the result is mapped to either a Boolean value or a typed non-value reason.",
+      "items": [
+        {"k":"box","at":[0,0,180,56],"role":"ink","title":"formula","subs":["MLTL, from tl-syntax"]},
+        {"k":"box","at":[0,64,180,56],"role":"ink","title":"proposition map","subs":["names → ids"]},
+        {"k":"box","at":[0,128,180,56],"role":"ink","title":"trace or history","subs":["future or past lane"]},
+        {"k":"box","at":[0,192,180,56],"role":"ink","title":"clock","subs":["observation clock"]},
+        {"k":"box","at":[0,256,180,56],"role":"ink","title":"observation facts","subs":["progress · closure"]},
+        {"k":"box","at":[232,128,150,56],"role":"logic","title":"request::derive","subs":["check and seal"]},
+        {"k":"box","at":[452,128,150,56],"role":"logic","title":"report::evaluate","subs":["tl-mltl runs it"]},
+        {"k":"box","at":[672,128,150,56],"role":"logic","title":"contract_ir::map","subs":["value or non-value"]},
+        {"k":"line","points":[[180,28],[206,28],[206,156],[229,156]],"role":"ink"},
+        {"k":"line","points":[[180,92],[206,92]],"role":"ink","arrow":false},
+        {"k":"line","points":[[180,156],[206,156]],"role":"ink","arrow":false},
+        {"k":"line","points":[[180,220],[206,220]],"role":"ink","arrow":false},
+        {"k":"line","points":[[206,28],[206,284]],"role":"ink","arrow":false},
+        {"k":"line","points":[[180,284],[206,284]],"role":"ink","arrow":false},
+        {"k":"line","points":[[382,156],[449,156]],"role":"logic"},
+        {"k":"line","points":[[602,156],[669,156]],"role":"logic"},
+        {"k":"note","at":[416,146],"text":"request","role":"model","anchor":"middle"},
+        {"k":"note","at":[636,146],"text":"result","role":"model","anchor":"middle"},
+        {"k":"line","points":[[822,156],[846,156]],"role":"logic","arrow":false},
+        {"k":"line","points":[[846,76],[846,204]],"role":"logic","arrow":false},
+        {"k":"line","points":[[846,76],[870,76]],"role":"logic"},
+        {"k":"line","points":[[846,204],[870,204]],"role":"evidence"},
+        {"k":"box","at":[872,48,108,56],"role":"logic","title":"Value","subs":["true / false"]},
+        {"k":"box","at":[872,176,108,56],"role":"evidence","title":"NonValue","subs":["typed reason"]},
+        {"k":"legend","at":[0,366],"entries":[["ink","input","box"],["logic","processing step","box"],["model","document passed on","box"],["evidence","no Boolean","box"]]}
+      ]
+    },
+    {"id": "tl-stack", "construct": {"name": "tl-stack", "here": "filament-mltl"}},
+    {"id": "pipeline", "construct": {"name": "tl-pipeline", "here": "filament-mltl"}},
+    {"id": "scenario-sequence", "construct": {"name": "tl-scenario", "here": "filament-mltl"}},
+    {
+      "id": "outcomes",
+      "width": 980, "height": 312,
+      "label": "A result is checked in order. Execution that did not complete, then completeness that is not complete, then an unavailable result, then unsettled truth each map to a NonValue with its own reason. Only a settled satisfied or violated result maps to a Boolean Value.",
+      "items": [
+        {"k":"text","at":[0,14],"text":"CHECKED TOP TO BOTTOM · THE FIRST ROW THAT APPLIES WINS","role":"muted","size":12},
+        {"k":"box","at":[0,28,540,48],"role":"logic","title":"execution did not complete","subs":["resource-incomplete · unsupported · failed · refused"]},
+        {"k":"line","points":[[540,52],[617,52]],"role":"evidence"},
+        {"k":"box","at":[620,28,360,48],"role":"evidence","title":"NonValue","subs":["that same reason"]},
+        {"k":"box","at":[0,84,540,48],"role":"logic","title":"completeness is not complete","subs":["contradicted · incomplete"]},
+        {"k":"line","points":[[540,108],[617,108]],"role":"evidence"},
+        {"k":"box","at":[620,84,360,48],"role":"evidence","title":"NonValue","subs":["contradicted · incomplete"]},
+        {"k":"box","at":[0,140,540,48],"role":"logic","title":"result is not available","subs":["not yet observed · producer or contract unavailable"]},
+        {"k":"line","points":[[540,164],[617,164]],"role":"evidence"},
+        {"k":"box","at":[620,140,360,48],"role":"evidence","title":"NonValue","subs":["unavailable"]},
+        {"k":"box","at":[0,196,540,48],"role":"logic","title":"truth is not settled","subs":["an open prefix that has not decided"]},
+        {"k":"line","points":[[540,220],[617,220]],"role":"evidence"},
+        {"k":"box","at":[620,196,360,48],"role":"evidence","title":"NonValue","subs":["pending"]},
+        {"k":"box","at":[0,252,540,48],"role":"logic","title":"truth is settled","subs":["satisfied · violated"]},
+        {"k":"line","points":[[540,276],[617,276]],"role":"logic"},
+        {"k":"box","at":[620,252,360,48],"role":"logic","title":"Value","subs":["true · false"]}
+      ]
+    },
+    {"id": "ecosystem", "construct": {"name": "ecosystem", "here": "filament-mltl"}}
+  ]
+}
