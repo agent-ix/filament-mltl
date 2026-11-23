@@ -39,6 +39,7 @@ make lint             # clippy with -D warnings
 make test             # cargo test
 make deny             # cargo deny check licenses and sources
 make docs             # cargo doc, denying missing/broken doc links
+make figures-check    # docs/images match docs/images/figures.json (needs ixd; not in ci)
 make ci               # complete local gate
 ```
 
