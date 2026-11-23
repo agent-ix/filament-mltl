@@ -1,4 +1,18 @@
 {
+  "data": {
+    "src_contradicted": {"from": "regex", "path": "src/contract_ir.rs", "pattern": "State::Contradicted => Some\\(NonValueKind::(\\w+)\\)"},
+    "ov_contradicted": {"from": "expect", "of": "src_contradicted", "equals": "Contradicted"},
+    "src_incomplete": {"from": "regex", "path": "src/contract_ir.rs", "pattern": "State::Incomplete => Some\\(NonValueKind::(\\w+)\\)"},
+    "ov_incomplete": {"from": "expect", "of": "src_incomplete", "equals": "Incomplete"},
+    "src_unavailable": {"from": "regex", "path": "src/contract_ir.rs", "pattern": "ContractUnavailable => Some\\(NonValueKind::(\\w+)\\)"},
+    "ov_unavailable": {"from": "expect", "of": "src_unavailable", "equals": "Unavailable"},
+    "src_pending": {"from": "regex", "path": "src/contract_ir.rs", "pattern": "TemporalTruth::Pending => NonValueKind::(\\w+)"},
+    "ov_pending": {"from": "expect", "of": "src_pending", "equals": "Pending"},
+    "src_true": {"from": "regex", "path": "src/contract_ir.rs", "pattern": "TemporalTruth::Satisfied => MappedOutcome::Value \\{ value: (\\w+) \\}"},
+    "ov_true": {"from": "expect", "of": "src_true", "equals": "true"},
+    "src_false": {"from": "regex", "path": "src/contract_ir.rs", "pattern": "TemporalTruth::Violated => MappedOutcome::Value \\{ value: (\\w+) \\}"},
+    "ov_false": {"from": "expect", "of": "src_false", "equals": "false"}
+  },
   "figures": [
     {
       "id": "hero",
@@ -46,16 +60,16 @@
         {"k":"box","at":[620,28,360,48],"role":"evidence","title":"NonValue","subs":["that same reason"]},
         {"k":"box","at":[0,84,540,48],"role":"logic","title":"completeness is not complete","subs":["contradicted · incomplete"]},
         {"k":"line","points":[[540,108],[617,108]],"role":"evidence"},
-        {"k":"box","at":[620,84,360,48],"role":"evidence","title":"NonValue","subs":["contradicted · incomplete"]},
+        {"k":"box","at":[620,84,360,48],"role":"evidence","title":"NonValue","subs":["{lower(ov_contradicted)} · {lower(ov_incomplete)}"]},
         {"k":"box","at":[0,140,540,48],"role":"logic","title":"result is not available","subs":["not yet observed · producer or contract unavailable"]},
         {"k":"line","points":[[540,164],[617,164]],"role":"evidence"},
-        {"k":"box","at":[620,140,360,48],"role":"evidence","title":"NonValue","subs":["unavailable"]},
+        {"k":"box","at":[620,140,360,48],"role":"evidence","title":"NonValue","subs":["{lower(ov_unavailable)}"]},
         {"k":"box","at":[0,196,540,48],"role":"logic","title":"truth is not settled","subs":["an open prefix that has not decided"]},
         {"k":"line","points":[[540,220],[617,220]],"role":"evidence"},
-        {"k":"box","at":[620,196,360,48],"role":"evidence","title":"NonValue","subs":["pending"]},
+        {"k":"box","at":[620,196,360,48],"role":"evidence","title":"NonValue","subs":["{lower(ov_pending)}"]},
         {"k":"box","at":[0,252,540,48],"role":"logic","title":"truth is settled","subs":["satisfied · violated"]},
         {"k":"line","points":[[540,276],[617,276]],"role":"logic"},
-        {"k":"box","at":[620,252,360,48],"role":"logic","title":"Value","subs":["true · false"]}
+        {"k":"box","at":[620,252,360,48],"role":"logic","title":"Value","subs":["{ov_true} · {ov_false}"]}
       ]
     },
     {"id": "ecosystem", "construct": {"name": "ecosystem", "here": "filament-mltl"}}
