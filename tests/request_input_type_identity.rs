@@ -61,6 +61,20 @@ pub fn past(history: &ValidatedPositionHistory) -> TemporalInput<'_> {
 }
 "#;
 
+/// The consumer's git dependency lines, taken from filament-mltl's own manifest
+/// so that the two always name the same packages.
+fn git_dependencies(filament_mltl: &Path) -> String {
+    let manifest = fs::read_to_string(filament_mltl.join("Cargo.toml")).expect("read manifest");
+    ["tl-mltl", "filament-observation", "tl-syntax"]
+        .map(|name| {
+            manifest
+                .lines()
+                .find(|line| line.starts_with(&format!("{name} = ")))
+                .unwrap_or_else(|| panic!("filament-mltl declares {name} on one line"))
+        })
+        .join("\n")
+}
+
 fn consumer_manifest(filament_mltl: &Path) -> String {
     format!(
         r#"[package]
@@ -76,11 +90,10 @@ path = "src/lib.rs"
 
 [dependencies]
 filament-mltl = {{ path = {path:?} }}
-tl-mltl = {{ version = "=0.4.1", git = "https://github.com/agent-ix/tl-mltl", rev = "06cda7776a3566ae90e223c3bc286c254618d39a" }}
-filament-observation = {{ version = "=0.1.1", git = "https://github.com/agent-ix/filament-observation", rev = "6e0524170e83c6fae0c35a404592cd3cae24252f" }}
-tl-syntax = {{ version = "=0.4.0", git = "https://github.com/agent-ix/tl-syntax.git", rev = "9f7b1c868df605cb6e885291db95a948cd08829c", default-features = false, features = ["alloc", "serde"] }}
+{git_dependencies}
 "#,
-        path = filament_mltl.display().to_string()
+        path = filament_mltl.display().to_string(),
+        git_dependencies = git_dependencies(filament_mltl)
     )
 }
 
