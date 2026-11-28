@@ -99,24 +99,13 @@ dependencies = [
 [[package]]
 name = "filament-observation"
 version = "0.1.1"
-source = "git+https://github.com/agent-ix/filament-observation?rev=a571be6adc71d4a53d44f62fb867c7b50f271a16#a571be6adc71d4a53d44f62fb867c7b50f271a16"
+source = "git+https://github.com/agent-ix/filament-observation?rev=b7929dd9b807ee9291fb4f6b5cf9d15e288a9b45#b7929dd9b807ee9291fb4f6b5cf9d15e288a9b45"
 dependencies = [
  "filament-exact",
- "filament-semantic-value",
  "quire-canonical",
  "serde",
  "serde_json",
  "sha2",
- "thiserror",
-]
-
-[[package]]
-name = "filament-semantic-value"
-version = "0.1.5"
-source = "git+https://github.com/agent-ix/filament-semantic-value?rev=95a9034d5ac8abe856f1d67428dd60c9bbc85fc5#95a9034d5ac8abe856f1d67428dd60c9bbc85fc5"
-dependencies = [
- "filament-exact",
- "quire-canonical",
  "thiserror",
 ]
 
@@ -198,8 +187,8 @@ dependencies = [
 
 [[package]]
 name = "quire-canonical"
-version = "0.3.2"
-source = "git+https://github.com/agent-ix/quire-canonical?tag=v0.3.2#f00840e4add08100e3491e8bc5bcb7d60a9e9ca2"
+version = "0.3.3"
+source = "git+https://github.com/agent-ix/quire-canonical?tag=quire-canonical-v0.3.3#9e6c3002a71944899c532b727dd05957d3c97265"
 dependencies = [
  "quire-canonical-derive",
  "ryu-js",
@@ -212,7 +201,7 @@ dependencies = [
 [[package]]
 name = "quire-canonical-derive"
 version = "0.3.0"
-source = "git+https://github.com/agent-ix/quire-canonical?tag=v0.3.2#f00840e4add08100e3491e8bc5bcb7d60a9e9ca2"
+source = "git+https://github.com/agent-ix/quire-canonical?tag=quire-canonical-v0.3.3#9e6c3002a71944899c532b727dd05957d3c97265"
 dependencies = [
  "proc-macro2",
  "quote",
